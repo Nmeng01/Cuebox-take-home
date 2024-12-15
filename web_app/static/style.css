@@ -1,0 +1,27 @@
+body {
+    font-family: 'Times New Roman', serif;
+    color: purple;
+    background-color: lavender;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.upload_container {
+    padding: 30px;
+    border: 5px solid purple;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    gap: 15px;
+}
+
+label, input, button {
+    font-family: Arial, Helvetica, sans-serif;
+}

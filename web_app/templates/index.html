@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Constituent and Tag Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Upload Client Data</h1>
+    <form id="upload_form" action="/output" method="post" enctype="multipart/form-data" class="upload_container">
+        <label for="c_input">Constituents Input</label>
+        <input type="file" name="c_input" accept=".csv">
+        <label for="e_input">Emails Input</label>
+        <input type="file" name="e_input" accept=".csv">
+        <label for="dh_input">Donation History Input</label>
+        <input type="file" name="dh_input" accept=".csv">
+        <button type="submit">Generate Output</button>
+    </form>
+</body>

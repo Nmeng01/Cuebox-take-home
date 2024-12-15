@@ -40,15 +40,12 @@ def normalize_dates(date):
     except ValueError:
         return float('nan')
 
-def gen_constituents():
-    fp1 = 'sample_data/constituents.csv'
-    fp2 = 'sample_data/emails.csv'
-    fp3 = 'sample_data/donation_history.csv'
+def gen_constituents(c_input, e_input, dh_input):
     mapped_tags = get_mapped_tags('https://6719768f7fc4c5ff8f4d84f1.mockapi.io/api/v1/tags')
 
-    c_df = pd.read_csv(fp1)
+    c_df = pd.read_csv(c_input)
     # Filter valid emails only
-    emails_df = pd.read_csv(fp2)
+    emails_df = pd.read_csv(e_input)
     valid_map = []
     for e in emails_df['Email']:
         try:
@@ -58,7 +55,7 @@ def gen_constituents():
             valid_map.append(False)
     emails_df = emails_df[valid_map]
     # Determine donation details
-    dhist_df = pd.read_csv(fp3)
+    dhist_df = pd.read_csv(dh_input)
     dhist_df = dhist_df[dhist_df['Status'] == 'Paid']
     dhist_df['Donation Amount'] = dhist_df['Donation Amount'].str.replace('$', '').str.replace(',', '').astype(float)
     most_recent_donations = dhist_df.loc[dhist_df.groupby('Patron ID')['Donation Date'].idxmax(),
@@ -104,9 +101,6 @@ def gen_constituents():
     c_df.insert(loc=1, column='type', value=c_df.pop('type'))
     c_df.insert(loc=4, column='company', value=c_df.pop('company'))
     c_df.insert(loc=7, column='email2', value=c_df.pop('email2'))
-    pd.set_option('display.max_columns', None)
-    pd.set_option('display.max_rows', None)
-    print(c_df)
     return c_df
 
 def gen_tag_counts(c_df):
@@ -115,8 +109,4 @@ def gen_tag_counts(c_df):
     tags_df = tags_df.explode('tags')
     tag_counts_df = tags_df['tags'].value_counts().reset_index(name='tag_count')
     tag_counts_df.rename(columns={'tags': 'tag_name'}, inplace=True)
-    return
-        
-
-c_df = gen_constituents()
-gen_tag_counts(c_df)
+    return tag_counts_df
