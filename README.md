@@ -4,7 +4,7 @@
 
 - Input file format is CSV because it is convenient for use in a Dataframe and is easily exportable from Google Sheets.
 - Input files will not be so large as to exceed memory on my computer. I may be wrong, but I don't anticipate that the datasets will be that massive.
-- A refunded donation should not count as part of a patron's lifetime donations nor their most recent donation since they did actually make the donation in the end.
+- A refunded donation should not count as part of a patron's lifetime donations nor their most recent donation since they did not actually make the donation in the end.
 - There is a space at the end of Camp 2016 in the API which seems like a mistake because none of the other tags have spaces at the end of them. 
 - There should not be duplicate tags in the output since they are redundant.
 - There are no other date formats other than the ones specified in the samples since I cannot predict what other formats there are. 
