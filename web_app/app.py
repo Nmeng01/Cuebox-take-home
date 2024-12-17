@@ -1,5 +1,6 @@
-from helper import gen_constituents, gen_tag_counts
+from helper import gen_constituents, gen_tag_counts, validate_data
 from flask import Flask, render_template, request, send_file
+import pandas as pd
 import io
 import zipfile
 
@@ -13,10 +14,13 @@ def create_app():
     
     @app.route('/output', methods=['POST'])
     def get_outputs():
-        c_input = request.files.get("c_input")
-        e_input = request.files.get("e_input")
-        dh_input = request.files.get("dh_input")
-        c_df = gen_constituents(c_input, e_input, dh_input)
+        constituents_df = pd.read_csv(request.files.get("c_input"))
+        emails_df = pd.read_csv(request.files.get("e_input"))
+        dhist_df = pd.read_csv(request.files.get("dh_input"))
+        valid, msg = validate_data(constituents_df, emails_df, dhist_df)
+        if not valid:
+            return f'Error detected: {msg}'
+        c_df = gen_constituents(constituents_df, emails_df, dhist_df)
         t_df = gen_tag_counts(c_df)
         c_buffer = io.StringIO()
         t_buffer = io.StringIO()

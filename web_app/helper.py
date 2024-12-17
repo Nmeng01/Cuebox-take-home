@@ -10,8 +10,7 @@ def get_mapped_tags(url):
         mapped_tags = {t['name'].strip(): t['mapped_name'].strip() for t in tags}
         return mapped_tags
     else:
-        print('Could not open url')
-        exit(1)
+        return {}
 
 def map_tags(tags, mapping):
     if pd.notnull(tags):
@@ -40,12 +39,28 @@ def normalize_dates(date):
     except ValueError:
         return float('nan')
 
-def gen_constituents(c_input, e_input, dh_input):
-    mapped_tags = get_mapped_tags('https://6719768f7fc4c5ff8f4d84f1.mockapi.io/api/v1/tags')
-    c_df = pd.read_csv(c_input)
+def validate_data(c_df, emails_df, dhist_df):
+    # Ensure all necessary columns are present
+    column_lists = [c_df.columns.tolist(), emails_df.columns.tolist(), dhist_df.columns.tolist()]
+    exp_columns = [['Patron ID', 'First Name', 'Last Name', 'Date Entered', 'Primary Email', 'Company', 'Salutation', 'Title', 'Tags', 'Gender'], 
+                   ['Patron ID', 'Email'], ['Patron ID', 'Donation Amount', 'Donation Date', 'Payment Method', 'Campaign', 'Status']]
+    for i in range(len(column_lists)):
+        if set(column_lists[i]) != set(exp_columns[i]):
+            return False, 'Ensure that columns adhere to the samples'
+    
+    # Verify all Patron IDs are unique in constituents input
+    # if not c_df['Patron ID'].is_unique:
+    #     return False, 'Non-unique Patron ID detected'
+    # Verify donations are all greater than 0
+    dhist_df['Donation Amount'] = dhist_df['Donation Amount'].str.replace('$', '').str.replace(',', '').astype(float)
+    if not (dhist_df['Donation Amount'] > 0).all():
+        return False, 'Non-positive donation amount detected'
+    
+    return True, ''
 
+def gen_constituents(c_df, emails_df, dhist_df):
+    mapped_tags = get_mapped_tags('https://6719768f7fc4c5ff8f4d84f1.mockapi.io/api/v1/tags')
     # Filter valid emails only
-    emails_df = pd.read_csv(e_input)
     valid_map = []
     for e in emails_df['Email']:
         try:
@@ -56,9 +71,7 @@ def gen_constituents(c_input, e_input, dh_input):
     emails_df = emails_df[valid_map]
 
     # Determine donation details
-    dhist_df = pd.read_csv(dh_input)
     dhist_df = dhist_df[dhist_df['Status'] == 'Paid']
-    dhist_df['Donation Amount'] = dhist_df['Donation Amount'].str.replace('$', '').str.replace(',', '').astype(float)
     most_recent_donations = dhist_df.loc[dhist_df.groupby('Patron ID')['Donation Date'].idxmax(),
                                          ['Patron ID', 'Donation Date', 'Donation Amount']]
     lt_donations = dhist_df.groupby('Patron ID').agg(lifetime_donations=('Donation Amount', 'sum'))
@@ -67,7 +80,9 @@ def gen_constituents(c_input, e_input, dh_input):
     donation_details['Donation Amount'] = donation_details['Donation Amount'].map('${:,.2f}'.format)
 
     # Determine constituent type
-    t_conds = [c_df['First Name'].notnull() & c_df['Last Name'].notnull(), c_df['Company'].notnull()]
+    non_company_words = ['n/a' 'none', 'used to work here'] # words that show up in company column that are certainly not companies
+    t_conds = [c_df['First Name'].notnull() & c_df['Last Name'].notnull(), 
+               c_df['Company'].notnull() & ~c_df['Company'].str.lower().isin(non_company_words)]
     t_choices = ['Person', 'Company']
     c_df['type'] = np.select(t_conds, t_choices, default='Unknown')
     c_df.insert(loc=1, column='type', value=c_df.pop('type'))

@@ -11,7 +11,8 @@
 
 ## Decisions
 - If a constituent has a first name, last name, and company, the constituent type is 'Person' because they are probably an individual who works at the given company, which does not mean the company itself is a constituent. 
-- If first name, last name, and company are empty, the constituent type is Unknown. A first and last name is required to classify a patron as 'Person'. A company name is required to classify a patron as 'Company'. In absence of all of these fields, it did not make sense to use either type.
+- If a constituent does not have a first and last name, and their company entry is something like None or N/A, then the constituent is classified as Unknown. This is because patrons might enter these types of things in the Company field. Given the small scale, I am just using a list to store 'non-company' words, but with larger data, a more complex solution might be necessary.
+- If first name, last name, and company are empty, the constituent type is Unknown. A first and last name is required to classify a patron as 'Person'. Acompany name is required to classify a patron as 'Company'. In absence of all of these fields, it did not make sense to use either type.
 - By convention, column names generally do not use spaces due to consistency issues, so I took the liberty of adhering to the snake case naming convention.
 - The created_at column will follow this format: Year-Month-Day Hour:Minute:Seconds. I chose this because it is a standard format for a timestamp.
 - If a tag is not mapped in the API, then it remains as is. Even though the tag is not mapped, it could still be important in the future and worth counting. 
