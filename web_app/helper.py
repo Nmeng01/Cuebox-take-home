@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import requests
 from email_validator import validate_email, EmailNotValidError
+import logging
 
 def get_mapped_tags(url):
     response = requests.get(url)
@@ -10,6 +11,7 @@ def get_mapped_tags(url):
         mapped_tags = {t['name'].strip(): t['mapped_name'].strip() for t in tags}
         return mapped_tags
     else:
+        logging.error(f'Error: Could not access tag mapping API at {url}')
         return {}
 
 def map_tags(tags, mapping):
@@ -25,22 +27,28 @@ def replace_invalid_email(entry, emails_df):
         validate_email(entry['Primary Email'], check_deliverability=True)
         return entry['Primary Email']
     except (EmailNotValidError, AttributeError):
+        if pd.isna(entry["Primary Email"]):
+            logging.error(f'{entry["Patron ID"]} did not provide a primary email')
+        else:
+            logging.error(f'{entry["Patron ID"]} provided invalid primary email: {entry["Primary Email"]}')
         return emails_df.loc[entry['Patron ID'], 'Email'] if entry['Patron ID'] in emails_df.index else float('nan')
 
 def normalize_dates(date):
-    try:
-        if pd.notnull(date):
-            if ':' in date:
-                d, t = date.split()
-                h, m = t.split(':')
-                h = h.zfill(2)
-                date = f'{d} {h}:{m}'
-            return pd.to_datetime(date, errors='coerce')
-    except ValueError:
+    if pd.notnull(date):
+        if ':' in date:
+            d, t = date.split()
+            h, m = t.split(':')
+            h = h.zfill(2)
+            date = f'{d} {h}:{m}'
+        normalized_date = pd.to_datetime(date, errors='coerce')
+        if pd.isna(normalized_date):
+            logging.error(f'Could not convert {date} to readable format')
+        return normalized_date
+    else:
         return float('nan')
 
 def validate_data(c_df, emails_df, dhist_df):
-    # Ensure all necessary columns are present
+    # Ensure all necessary columns are present, cannot continue if false
     column_lists = [c_df.columns.tolist(), emails_df.columns.tolist(), dhist_df.columns.tolist()]
     exp_columns = [['Patron ID', 'First Name', 'Last Name', 'Date Entered', 'Primary Email', 'Company', 'Salutation', 'Title', 'Tags', 'Gender'], 
                    ['Patron ID', 'Email'], ['Patron ID', 'Donation Amount', 'Donation Date', 'Payment Method', 'Campaign', 'Status']]
@@ -48,13 +56,19 @@ def validate_data(c_df, emails_df, dhist_df):
         if set(column_lists[i]) != set(exp_columns[i]):
             return False, 'Ensure that columns adhere to the samples'
     
-    # Verify all Patron IDs are unique in constituents input
-    # if not c_df['Patron ID'].is_unique:
-    #     return False, 'Non-unique Patron ID detected'
-    # Verify donations are all greater than 0
-    dhist_df['Donation Amount'] = dhist_df['Donation Amount'].str.replace('$', '').str.replace(',', '').astype(float)
+    # Verify all Patron IDs are unique in constituents input, should not continue if false
+    # Might break logic but sample does not so temporarily just log the error for presentation purposes
+    if not c_df['Patron ID'].is_unique:
+        logging.error('Error in constituents file: Patron IDs are not unique')
+
+    # Verify all donations are in valid format and all greater than 0
+    try:
+        dhist_df['Donation Amount'] = dhist_df['Donation Amount'].str.replace('$', '').str.replace(',', '').astype(float)
+    except ValueError:
+        return False, 'Invalid donation amount format detected'
+    
     if not (dhist_df['Donation Amount'] > 0).all():
-        return False, 'Non-positive donation amount detected'
+        logging.error('Error in Donation History file: Non-positive donation amount detected')
     
     return True, ''
 
@@ -67,6 +81,7 @@ def gen_constituents(c_df, emails_df, dhist_df):
             validate_email(e, check_deliverability=True)
             valid_map.append(True)
         except EmailNotValidError:
+            logging.error(f'Invalid email detected in Emails file: {e}')
             valid_map.append(False)
     emails_df = emails_df[valid_map]
 

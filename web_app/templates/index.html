@@ -10,11 +10,34 @@
     <h1>Upload Client Data</h1>
     <form id="upload_form" action="/output" method="post" enctype="multipart/form-data" class="upload_container">
         <label for="c_input">Constituents Input</label>
-        <input type="file" name="c_input" accept=".csv">
+        <input type="file" name="c_input" accept=".csv" required>
         <label for="e_input">Emails Input</label>
-        <input type="file" name="e_input" accept=".csv">
+        <input type="file" name="e_input" accept=".csv" required>
         <label for="dh_input">Donation History Input</label>
-        <input type="file" name="dh_input" accept=".csv">
-        <button type="submit">Generate Output</button>
+        <input type="file" name="dh_input" accept=".csv" required>
+        <button id="submit_button" type="submit" disabled>Generate Output</button>
     </form>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputs = document.querySelectorAll("input[type='file']");
+        const submitButton = document.getElementById("submit_button");
+        
+        // Check if all inputs are fulfilled
+        function checkInputs() {
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFilled = false;
+                }
+            });
+            submitButton.disabled = !allFilled;
+        }
+
+        // Add event listeners to inputs
+        inputs.forEach(input => {
+            input.addEventListener("change", checkInputs);
+        });
+    });
+</script>

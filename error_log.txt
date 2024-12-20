@@ -1,0 +1,68 @@
+2024-12-20 15:59:05,311 - ERROR - Error in constituents file: Patron IDs are not unique
+2024-12-20 15:59:07,038 - ERROR - Invalid email detected in Emails file: dhays@ellison-anderson.org
+2024-12-20 15:59:07,405 - ERROR - Invalid email detected in Emails file: jamescarmen@gmaill.com
+2024-12-20 15:59:07,456 - ERROR - Invalid email detected in Emails file: frazierjanice@gmaill.com
+2024-12-20 15:59:08,395 - ERROR - Invalid email detected in Emails file: browneric@patton.biz
+2024-12-20 15:59:08,632 - ERROR - Invalid email detected in Emails file: joshuaparker@hotmal.com
+2024-12-20 15:59:09,559 - ERROR - Invalid email detected in Emails file: clarkdeborah@mejia-holmes.com
+2024-12-20 15:59:09,595 - ERROR - Invalid email detected in Emails file: simpsondouglas@ortiz-miles.net
+2024-12-20 15:59:10,124 - ERROR - Invalid email detected in Emails file: langtanya@gmal.com
+2024-12-20 15:59:10,137 - ERROR - Invalid email detected in Emails file: alejandro66@patrick-curry.biz
+2024-12-20 15:59:10,371 - ERROR - Invalid email detected in Emails file: tuckergloria@rodgers-hall.net
+2024-12-20 15:59:10,514 - ERROR - Invalid email detected in Emails file: mendezmichelle@joseph-harris.info
+2024-12-20 15:59:10,759 - ERROR - Invalid email detected in Emails file: michael43@hall-lee.com
+2024-12-20 15:59:11,132 - ERROR - Invalid email detected in Emails file: sherry71@ward-hernandez.com
+2024-12-20 15:59:11,568 - ERROR - Invalid email detected in Emails file: xavierwhite@arnold-taylor.net
+2024-12-20 15:59:12,078 - ERROR - Invalid email detected in Emails file: brownjames@harris-orozco.info
+2024-12-20 15:59:12,097 - ERROR - Invalid email detected in Emails file: mathew49@mcfarland-yoder.info
+2024-12-20 15:59:12,232 - ERROR - Invalid email detected in Emails file: yolson@gmaill.com
+2024-12-20 15:59:13,518 - ERROR - Invalid email detected in Emails file: beth24@butler-logan.net
+2024-12-20 15:59:13,579 - ERROR - Invalid email detected in Emails file: millersherry@gmaill.com
+2024-12-20 15:59:13,593 - ERROR - Invalid email detected in Emails file: millernicole@stanley-harris.com
+2024-12-20 15:59:13,773 - ERROR - Invalid email detected in Emails file: deborah76@moses-rangel.com
+2024-12-20 15:59:13,787 - ERROR - Invalid email detected in Emails file: lkelly@butler-bradford.biz
+2024-12-20 15:59:14,510 - ERROR - Invalid email detected in Emails file: xwilson@olsen-morgan.org
+2024-12-20 15:59:15,024 - ERROR - Invalid email detected in Emails file: kaylaprice@york-vance.com
+2024-12-20 15:59:15,179 - ERROR - Invalid email detected in Emails file: victoria10@gmal.com
+2024-12-20 15:59:15,242 - ERROR - Invalid email detected in Emails file: deantravis@russo-nelson.org
+2024-12-20 15:59:15,262 - ERROR - Invalid email detected in Emails file: burnsamber@luna-solis.net
+2024-12-20 15:59:15,406 - ERROR - Invalid email detected in Emails file: shepardrachel@olson-arnold.com
+2024-12-20 15:59:15,626 - ERROR - Invalid email detected in Emails file: fishermaureen@walsh-davis.info
+2024-12-20 15:59:15,984 - ERROR - Invalid email detected in Emails file: thomaswelch@adams-castillo.com
+2024-12-20 15:59:16,008 - ERROR - Invalid email detected in Emails file: helenclark@hoffman-salazar.biz
+2024-12-20 15:59:16,562 - ERROR - Invalid email detected in Emails file: doughertyjesse@gmaill.com
+2024-12-20 15:59:16,830 - ERROR - Invalid email detected in Emails file: ujohnson@luna-riddle.net
+2024-12-20 15:59:16,912 - ERROR - Invalid email detected in Emails file: kevin68@gmal.com
+2024-12-20 15:59:17,103 - ERROR - Invalid email detected in Emails file: mayertammy@collins-vasquez.org
+2024-12-20 15:59:17,171 - ERROR - Invalid email detected in Emails file: bday@odom-archer.com
+2024-12-20 15:59:17,311 - ERROR - Invalid email detected in Emails file: lisa94@wong.biz
+2024-12-20 15:59:17,668 - ERROR - Invalid email detected in Emails file: kelly82@solomon.info
+2024-12-20 15:59:17,729 - ERROR - Invalid email detected in Emails file: brittney12@lee-williamson.org
+2024-12-20 15:59:17,798 - ERROR - Invalid email detected in Emails file: qkoch@gmal.com
+2024-12-20 15:59:18,295 - ERROR - Invalid email detected in Emails file: shelby30@olsen-oliver.com
+2024-12-20 15:59:18,441 - ERROR - Invalid email detected in Emails file: montoyajames@aguilar-hancock.info
+2024-12-20 15:59:18,578 - ERROR - Invalid email detected in Emails file: watsonzachary@gonzalez-ochoa.com
+2024-12-20 15:59:18,678 - ERROR - Invalid email detected in Emails file: alexander72@barton-harris.org
+2024-12-20 15:59:18,792 - ERROR - Invalid email detected in Emails file: gdickerson@gmal.com
+2024-12-20 15:59:19,307 - ERROR - Invalid email detected in Emails file: ujackson@reed-perez.com
+2024-12-20 15:59:19,359 - ERROR - Invalid email detected in Emails file: jamesharrison@ray-sherman.com
+2024-12-20 15:59:20,348 - ERROR - Invalid email detected in Emails file: daltonmichael@gmaill.com
+2024-12-20 15:59:20,550 - ERROR - Invalid email detected in Emails file: jon30@tate.biz
+2024-12-20 15:59:20,627 - ERROR - Invalid email detected in Emails file: thomassamuel@gmaill.com
+2024-12-20 15:59:20,777 - ERROR - Invalid email detected in Emails file: xhubbard@garcia.biz
+2024-12-20 15:59:21,338 - ERROR - 5966 provided invalid primary email: frazierjanice@gmaill.com
+2024-12-20 15:59:21,339 - ERROR - 5034 did not provide a primary email
+2024-12-20 15:59:21,532 - ERROR - 6523 provided invalid primary email: browneric@patton.biz
+2024-12-20 15:59:21,610 - ERROR - 9432 provided invalid primary email: joshuaparker@hotmal.com
+2024-12-20 15:59:21,854 - ERROR - 5032 provided invalid primary email: simpsondouglas@ortiz-miles.net
+2024-12-20 15:59:21,901 - ERROR - 3434 provided invalid primary email: alejandro66@patrick-curry.biz
+2024-12-20 15:59:21,975 - ERROR - 6020 did not provide a primary email
+2024-12-20 15:59:22,180 - ERROR - 2976 did not provide a primary email
+2024-12-20 15:59:22,181 - ERROR - 8309 did not provide a primary email
+2024-12-20 15:59:22,191 - ERROR - 9859 provided invalid primary email: michael43@hall-lee.com
+2024-12-20 15:59:22,255 - ERROR - 4926 did not provide a primary email
+2024-12-20 15:59:22,666 - ERROR - 6822 did not provide a primary email
+2024-12-20 15:59:22,691 - ERROR - 7564 provided invalid primary email: yolson@gmaill.com
+2024-12-20 15:59:22,692 - ERROR - 4036 did not provide a primary email
+2024-12-20 15:59:22,774 - ERROR - 1459 provided invalid primary email: millersherry@gmaill.com
+2024-12-20 15:59:22,802 - ERROR - 8265 provided invalid primary email: lkelly@butler-bradford.biz

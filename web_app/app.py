@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, send_file
 import pandas as pd
 import io
 import zipfile
+import logging
 
 
 def create_app():
@@ -38,5 +39,14 @@ def create_app():
     return app
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        filename='error_log.txt',
+        filemode='a',
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        level=logging.ERROR
+    )
+    flask_logger = logging.getLogger('werkzeug')
+    flask_logger.propagate = False
+
     app = create_app()
     app.run(host="0.0.0.0", port=5000)
