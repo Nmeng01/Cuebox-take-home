@@ -1,3 +1,4 @@
+/*General styling*/
 body {
     font-family: 'Times New Roman', serif;
     color: purple;
@@ -11,6 +12,7 @@ body {
     align-items: center; 
 }
 
+/*Styling for the upload area*/
 .upload_container {
     padding: 30px;
     border: 5px solid purple;
@@ -20,8 +22,5 @@ body {
     align-items: center;
     width: 400px;
     gap: 15px;
-}
-
-label, input, button {
     font-family: Arial, Helvetica, sans-serif;
 }
